@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: echo-server
+  template:
+    metadata:
+      labels:
+        app: echo-server
+    spec:
+      containers:
+        - name: echo-server
+          image: jmalloc/echo-server:latest
+          ports:
+            - name: http-port
+              containerPort: 8080
+          env:
+          - name: LOG_HTTP_HEADERS
+            value: "true"
+          - name: LOG_HTTP_BODY
+            value: "true"
